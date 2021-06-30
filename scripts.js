@@ -6,50 +6,85 @@ function computerPlay(play) {
     
 }
 let play = ['rock', 'paper', 'scissors']
+let score = 0;
+let computerScore = 0;
 
 // Write a function that plays a single game of RPS. 
 // The function should take two parameters
 // and then return a string that declares the winner of the round
-function playRound(playerSelection, computerSelection) {
-    if (playerSelection === 'rock' && computerSelection ==='paper') {
-        return 'You Lose! Paper beats Rock'
+function game() {
+    function playRound(playerSelection, computerSelection) {
+        computerSelection = computerPlay(play);
+        playerSelection = prompt('Make a selection: Rock, Paper or Scissors').toLowerCase();
+        if (playerSelection === 'rock' && computerSelection ==='paper') {
+            computerScore+=1;
+            return 'You Lose! Paper beats Rock'
+        }
+        else if (playerSelection === 'rock' && computerSelection === 'scissors') {
+            score+=1;
+            return 'You Win! Rock beats Scissors'
+        }
+        else if (playerSelection === 'rock' && computerSelection === 'rock') {
+            return 'Its a draw Rock & Rock'
+        }
+        else if (playerSelection === 'paper' && computerSelection === 'rock') {
+            score+=1;
+            return 'You Win! Paper beats Rock' 
+        }
+        else if (playerSelection === 'paper' && computerSelection === 'scissors') {
+            computerScore+=1;
+            return 'You Lose! Scissors beats Paper'
+        }
+        else if (playerSelection === 'paper' && computerSelection === 'paper') {
+            return 'Its a draw Paper & Paper'
+        }
+        else if (playerSelection === 'scissors' && computerSelection === 'rock') {
+            computerScore+=1;
+            return 'You Lose! Rock beats Scissors'
+        } 
+        else if (playerSelection === 'scissors' && computerSelection === 'paper') {
+            score+=1;
+            return 'You Win! Scissors beats Paper'
+        }
+        else if (playerSelection === 'scissors' && computerSelection === 'scissors') {
+            return 'Its a draw Scissors & Scissors'
+        }
+        else {
+            return 'Please Make a Selection'
+        }
     }
-    else if (playerSelection === 'rock' && computerSelection === 'scissors') {
-        return 'You Win! Rock beats Scissors'
+    console.log(playRound(playerSelection, computerSelection));
+    console.log("userscore " + score);
+    console.log("computerscore " +computerScore);
+    console.log(playRound(playerSelection, computerSelection));
+    console.log("userscore " + score);
+    console.log("computerscore " +computerScore);
+    console.log(playRound(playerSelection, computerSelection));
+    console.log("userscore " + score);
+    console.log("computerscore " +computerScore);
+    console.log(playRound(playerSelection, computerSelection));
+    console.log("userscore " + score);
+    console.log("computerscore " +computerScore);
+    console.log(playRound(playerSelection, computerSelection));
+    console.log("userscore " + score);
+    console.log("computerscore " +computerScore);
+    if (score > computerScore) {
+        console.log("Congrats You Won The Game!")
     }
-    else if (playerSelection === 'rock' && computerSelection === 'rock') {
-        return 'Its a draw Rock & Rock'
-    }
-    else if (playerSelection === 'paper' && computerSelection === 'rock') {
-        return 'You Win! Paper beats Rock'
-    }
-    else if (playerSelection === 'paper' && computerSelection === 'scissors') {
-        return 'You Lose! Scissors beats Paper'
-    }
-    else if (playerSelection === 'paper' && computerSelection === 'paper') {
-        return 'Its a draw Paper & Paper'
-    }
-    else if (playerSelection === 'scissors' && computerSelection === 'rock') {
-        return 'You Lose! Rock beats Scissors'
-    } 
-    else if (playerSelection === 'scissors' && computerSelection === 'paper') {
-        return 'You Win! Scissors beats Paper'
+    else if (score < computerScore) {
+        console.log("You Lose, Computer wins!")
     }
     else {
-        return 'Its a draw Scissors & Scissors'
+        console.log("Its a Draw, Try Again")
     }
 }
-const playerSelection = "scissors";
-const computerSelection = computerPlay(play);
-console.log(computerSelection)
-console.log(playRound(playerSelection, computerSelection));
 
-// rock, paper
-// rock, scissors
-// rock, rock
-// paper, rock
-// paper, scissors
-// paper, paper
-// scissors, rock
-// scissors, paper
-// scissors, scissors
+let playerSelection;
+const computerSelection = computerPlay(play);
+game();
+
+
+// Write a new function called game(). 
+// Use the previous function inside of game() to play a 5 round game
+// Keep score and report a winner or loser at the end
+
