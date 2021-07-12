@@ -1,90 +1,89 @@
-// Playing against the computer
-// Start with a functuin that will randomly return either 'rock', 'paper' or 'scissors'.
-
-function computerPlay(play) {
-    return play[Math.floor(Math.random()*play.length)];
-    
-}
 let play = ['rock', 'paper', 'scissors']
 let score = 0;
 let computerScore = 0;
+let playerSelection;
+let computerSelection = computerPlay(play)
 
-// Write a function that plays a single game of RPS. 
-// The function should take two parameters
-// and then return a string that declares the winner of the round
-function game() {
+function computerPlay(play) {
+    return play[Math.floor(Math.random()*play.length)]
+};
+
     function playRound(playerSelection, computerSelection) {
+        let result = " "
+        let scores = " "
         computerSelection = computerPlay(play);
-        playerSelection = prompt('Make a selection: Rock, Paper or Scissors').toLowerCase();
         if (playerSelection === 'rock' && computerSelection ==='paper') {
             computerScore+=1;
-            return 'You Lose! Paper beats Rock'
+            result = 'You Lose! Computer Chose Paper. Paper beats Rock ';
+            scores = "Player Score: " + score + " || Computer Score: " + computerScore;
         }
         else if (playerSelection === 'rock' && computerSelection === 'scissors') {
             score+=1;
-            return 'You Win! Rock beats Scissors'
+            result = 'You Win! Computer Chose Scissors. Rock beats Scissors ' 
+            scores = "Player Score: " + score + " || Computer Score: " + computerScore;
         }
         else if (playerSelection === 'rock' && computerSelection === 'rock') {
-            return 'Its a draw Rock & Rock'
+            result = 'Its a draw Rock & Rock ' 
+            scores = "Player Score: " + score + " || Computer Score: " + computerScore;
         }
         else if (playerSelection === 'paper' && computerSelection === 'rock') {
             score+=1;
-            return 'You Win! Paper beats Rock' 
+            result = 'You Win! Computer Chose Rock. Paper beats Rock ' 
+            scores = "Player Score: " + score + " || Computer Score: " + computerScore;
         }
         else if (playerSelection === 'paper' && computerSelection === 'scissors') {
             computerScore+=1;
-            return 'You Lose! Scissors beats Paper'
+            result = 'You Lose! Computer Chose Scissors. Scissors beats Paper '
+            scores = "Player Score: " + score + " || Computer Score: " + computerScore;
         }
         else if (playerSelection === 'paper' && computerSelection === 'paper') {
-            return 'Its a draw Paper & Paper'
+            result = 'Its a draw Paper & Paper '
+            scores = "Player Score: " + score + " || Computer Score: " + computerScore;
         }
         else if (playerSelection === 'scissors' && computerSelection === 'rock') {
             computerScore+=1;
-            return 'You Lose! Rock beats Scissors'
+            result = 'You Lose! Computer Chose Rock. Rock beats Scissors '
+            scores = "Player Score: " + score + " || Computer Score: " + computerScore;
         } 
         else if (playerSelection === 'scissors' && computerSelection === 'paper') {
             score+=1;
-            return 'You Win! Scissors beats Paper'
+            result = 'You Win! Computer Chose Paper. Scissors beats Paper ' 
+            scores = "Player Score: " + score + " || Computer Score: " + computerScore;
         }
         else if (playerSelection === 'scissors' && computerSelection === 'scissors') {
-            return 'Its a draw Scissors & Scissors'
+            result = 'Its a draw Scissors & Scissors '
+            scores = "Player Score: " + score + " || Computer Score: " + computerScore;
         }
         else {
-            return 'Please Make a Selection'
+            result = 'Please Make a Selection'
+        }
+        const div = document.getElementById('results')
+        div.textContent = result 
+        const scoreboard = document.getElementById('scoreBoard')
+        scoreboard.textContent = scores
+        
+        if (score == 5) {
+            const final = document.getElementById('final')
+            final.textContent = "Congrats You Won The Game! Refresh the page to play again"
+            disable();
+        }
+        else if (computerScore == 5) {
+            final.textContent = "You Lose, Computer wins! Refresh the page to play again"
+            disable();
         }
     }
-    console.log(playRound(playerSelection, computerSelection));
-    console.log("userscore " + score);
-    console.log("computerscore " +computerScore);
-    console.log(playRound(playerSelection, computerSelection));
-    console.log("userscore " + score);
-    console.log("computerscore " +computerScore);
-    console.log(playRound(playerSelection, computerSelection));
-    console.log("userscore " + score);
-    console.log("computerscore " +computerScore);
-    console.log(playRound(playerSelection, computerSelection));
-    console.log("userscore " + score);
-    console.log("computerscore " +computerScore);
-    console.log(playRound(playerSelection, computerSelection));
-    console.log("userscore " + score);
-    console.log("computerscore " +computerScore);
-    if (score > computerScore) {
-        console.log("Congrats You Won The Game!")
-    }
-    else if (score < computerScore) {
-        console.log("You Lose, Computer wins!")
-    }
-    else {
-        console.log("Its a Draw, Try Again")
-    }
+    
+function disable () {
+    buttons.forEach(button => {
+        button.disabled = true;
+    })  
 }
 
-let playerSelection;
-const computerSelection = computerPlay(play);
-game();
-
-
-// Write a new function called game(). 
-// Use the previous function inside of game() to play a 5 round game
-// Keep score and report a winner or loser at the end
+const buttons = document.querySelectorAll('button')
+buttons.forEach(button => {
+    button.addEventListener('click', e => {
+        playerSelection = button.id
+        playRound(playerSelection)
+    })    
+})
 
